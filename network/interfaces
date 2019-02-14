@@ -1,0 +1,12 @@
+source /etc/network/interfaces.d/*
+
+auto lo
+iface lo inet loopback
+
+allow-hotplug $INTERFACE_NAME
+iface $INTERFACE_NAME inet static
+	address $IP
+	netmask $NETMASK
+	network	$NETWORK
+	broadcast $BROADCAST
+	gateway $GATEWAY
