@@ -3,8 +3,9 @@
 SSH_PORT="4242"
 SSHD_CONF_FILE_LOC="/etc/ssh/sshd_config"
 
-sudo sed -i -e 's/#Port 22/Port '$SSH_PORT'/g;
-	s/#PasswordAuthentication yes/PasswordAuthentication no/g;
-	s/#PermitRootLogin prohibit-password/PermitRootLogin no/g;' $SSHD_CONF_FILE_LOC
-
+sudo apt-get install ssh
+sudo sed -i -e 's/#Port 22/Port '$SSH_PORT'/g;' $SSHD_CONF_FILE_LOC
 sudo service ssh restart
+sudo mkdir -p ~/.ssh
+
+echo "SSH on port 4242, please upload your id_rsa.pub via scp in ~/.ssh, and run ssh2.sh"
