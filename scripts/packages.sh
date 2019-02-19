@@ -2,4 +2,4 @@
 
 PACKAGES="ssh"
 
-su -c "apt-get install $PACKAGES" root
+sudo apt-get install $PACKAGES
