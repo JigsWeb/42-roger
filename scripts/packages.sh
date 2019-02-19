@@ -1,5 +1,5 @@
 #!/bin/sh
 
-PACKAGES="sudo ssh"
+PACKAGES="ssh"
 
 su -c "apt-get install $PACKAGES" root
