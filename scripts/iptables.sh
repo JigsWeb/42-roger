@@ -1,4 +1,4 @@
 #!/bin/sh
 
-sudo mv ./iptables /etc/network/if-pre-up.d/
-sudo chmod +x /etc/network/if-pre-up.d/iptables
+
+iptables -t mangle -A PREROUTING -s 127.0.0.1/8 -j DROP
