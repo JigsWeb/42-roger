@@ -3,10 +3,10 @@ source /etc/network/interfaces.d/*
 auto lo
 iface lo inet loopback
 
-allow-hotplug enp0s3
-iface enp0s3 inet static
-	address 10.0.2.15
-	netmask 255.255.255.252
-	network	10.0.2.0
-	broadcast 10.0.2.255
-	gateway 10.0.2.2
+allow-hotplug ${INTERFACE_NAME}
+iface ${INTERFACE_NAME} inet static
+	address ${IP}
+	netmask ${NETMASK}
+	network	${NETWORK}
+	broadcast ${BROADCAST}
+	gateway ${GATEWAY}

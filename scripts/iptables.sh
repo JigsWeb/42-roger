@@ -3,7 +3,6 @@
 # Remove all rules
 sudo iptables -P INPUT ACCEPT
 sudo iptables -P OUTPUT ACCEPT
-sudo iptables -P FORWARD ACCEPT
 sudo iptables -t mangle -F
 sudo iptables -t mangle -X
 sudo iptables -t nat -F
@@ -11,8 +10,11 @@ sudo iptables -t nat -X
 sudo iptables -X
 sudo iptables -F
 
+# On est pas un putain de routeur
+iptables -P FORWARD DROP
+
 # Block packet to other destionation than port 4242 and 80 (web)
-sudo iptables -mangle -A PREROUTING -p tcp --match multiport ! --dports 22,80 -j DROP
+sudo iptables -mangle -A INPUT -p tcp --match multiport ! --dports 22,80,443 -j DROP
 
 # Block packet from reserved/local IPv4 network
 sudo iptables -t mangle -A PREROUTING -s 127.0.0.1/8 -j DROP
@@ -37,7 +39,7 @@ sudo iptables -t mangle -A PREROUTING -p tcp ! --syn -m conntrack --ctstate NEW 
 # Block new packets (Only SYN see previous rules) with dumb MSS value
 sudo iptables -t mangle -A PREROUTING -p tcp -m conntrack --ctstate NEW -m tcpmss ! --mss 536:65535 -j DROP
 
-# Block TCP packets with dumb flags
+# Port scanning protection
 
 sudo iptables -t mangle -A PREROUTING -p tcp --tcp-flags FIN,SYN,RST,PSH,ACK,URG NONE -j DROP 
 sudo iptables -t mangle -A PREROUTING -p tcp --tcp-flags FIN,SYN FIN,SYN -j DROP 
@@ -57,6 +59,10 @@ sudo iptables -t mangle -A PREROUTING -p tcp --tcp-flags ALL SYN,RST,ACK,FIN,URG
 
 sudo iptables -t mangle -A PREROUTING -p icmp -j DROP
 
+# Block fragmented packets
+
+sudo iptables -t mangle -A PREROUTING -f -j DROP
+
 # Limit TCP connections
 
 sudo iptables -A INPUT -p tcp -m connlimit --connlimit-above 80 -j REJECT --reject-with tcp-reset
@@ -70,3 +76,8 @@ sudo iptables -A INPUT -p tcp -m conntrack --ctstate NEW -j DROP
 
 sudo iptables -A INPUT -p tcp --tcp-flags RST RST -m limit --limit 2/s --limit-burst 2 -j ACCEPT 
 sudo iptables -A INPUT -p tcp --tcp-flags RST RST -j DROP
+
+# Create pre-up rule on network interface for make iptables rules persistent
+
+sudo iptables-save > /etc/iptables.rules.v4
+sudo echo "    pre-up iptables-restore /etc/iptables.rules.v4" >> /etc/network/interfaces
