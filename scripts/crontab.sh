@@ -1,6 +1,6 @@
 #!/bin/sh
 
-COMMAND="apt-get update && apt-get upgrade"
+COMMAND="apt-get -y update && apt-get -y upgrade > /var/log/update_script.log"
 
-sudo sh -c 'echo "0 4 0 0 1 amoynet $COMMAND" >> /etc/crontab'
-sudo sh -c 'echo "@reboot amoynet $COMMAND" >> /etc/crontab'
+sudo sh -c "echo '0 4 * * 1 root $COMMAND' >> /etc/crontab"
+sudo sh -c "echo '@reboot root $COMMAND' >> /etc/crontab"
