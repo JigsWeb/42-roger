@@ -14,7 +14,7 @@ sudo iptables -F
 iptables -P FORWARD DROP
 
 # Block packet to other destionation than port 4242 and 80 (web)
-sudo iptables -mangle -A INPUT -p tcp --match multiport ! --dports 22,80,443 -j DROP
+sudo iptables -mangle -A INPUT -p tcp --match multiport ! --dports 4242,80,443 -j DROP
 
 # Block packet from reserved/local IPv4 network
 sudo iptables -t mangle -A PREROUTING -s 127.0.0.1/8 -j DROP
