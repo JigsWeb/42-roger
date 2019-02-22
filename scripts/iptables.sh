@@ -11,10 +11,10 @@ sudo iptables -X
 sudo iptables -F
 
 # On est pas un putain de routeur
-iptables -P FORWARD DROP
+sudo iptables -P FORWARD DROP
 
 # Block packet to other destionation than port 4242 and 80 (web)
-sudo iptables -mangle -A INPUT -p tcp --match multiport ! --dports 4242,80,443 -j DROP
+sudo iptables -t mangle -A INPUT -p tcp --match multiport ! --dports 4242,80,443 -j DROP
 
 # Block packet from reserved/local IPv4 network
 sudo iptables -t mangle -A PREROUTING -s 127.0.0.1/8 -j DROP
@@ -79,5 +79,5 @@ sudo iptables -A INPUT -p tcp --tcp-flags RST RST -j DROP
 
 # Create pre-up rule on network interface for make iptables rules persistent
 
-sudo iptables-save > /etc/iptables.rules.v4
-sudo echo "    pre-up iptables-restore /etc/iptables.rules.v4" >> /etc/network/interfaces
+sudo sh -c 'iptables-save > /etc/iptables.rules.v4'
+sudo sh -c 'echo "    pre-up iptables-restore /etc/iptables.rules.v4" >> /etc/network/interfaces'
