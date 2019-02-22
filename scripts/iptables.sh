@@ -3,6 +3,7 @@
 # Remove all rules
 sudo iptables -P INPUT ACCEPT
 sudo iptables -P OUTPUT ACCEPT
+sudo iptables -P FORWARD ACCEPT
 sudo iptables -t mangle -F
 sudo iptables -t mangle -X
 sudo iptables -t nat -F
@@ -11,7 +12,9 @@ sudo iptables -X
 sudo iptables -F
 
 # On est pas un putain de routeur
-sudo iptables -P FORWARD DROP
+
+sudo iptables -t mangle -A OUTPUT -p tcp --dport 80 -m state --state NEW -j ACCEPT
+sudo iptables -t mangle -A INPUT -p tcp --sport 80 -m state --state ESTABLISHED -j ACCEPT
 
 # Block packet to other destionation than port 4242 and 80 (web)
 sudo iptables -t mangle -A INPUT -p tcp --match multiport ! --dports 4242,80,443 -j DROP
