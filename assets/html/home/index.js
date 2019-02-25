@@ -1,4 +1,4 @@
-var socket = io(`http://localhost:8000`);
+var socket = io(`/api`);
 
 const setters = {
     pages: (pages, state) => $('#menu')
