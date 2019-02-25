@@ -2,7 +2,7 @@ const $signinForm = $("#signin-form");
 
 function successAuthentificationHandler({ token }) {
     document.cookie = `token=${token}`
-    location.href = location.origin + '/home'
+    location.href = location.href + '/home'
 }
 
 function failureAuthentificationHandler() {
