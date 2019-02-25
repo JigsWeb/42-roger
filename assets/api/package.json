@@ -6,7 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "babel --presets latest -d lib/ src",
-    "start": "npm run build && node lib/index.js"
+    "start": "npm run build && node lib/index.js",
+    "dev": "nodemon --exec npm start --ignore lib"
   },
   "author": "amoynet",
   "license": "ISC",
