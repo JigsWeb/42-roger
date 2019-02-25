@@ -26,7 +26,7 @@ echo "deb http://repo.mongodb.org/apt/debian stretch/mongodb-org/4.0 main" | sud
 sudo apt-get update
 sudo apt-get install mongodb-org
 sudo service mongod start
-mongorestore --collection users --db ssui assets/dump
+mongorestore --collection users --db ssui assets/dump/ssui/users.bson
 
 cp -R assets/api /opt
 (cd /opt/api && sudo npm install)
