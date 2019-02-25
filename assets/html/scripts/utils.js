@@ -21,7 +21,7 @@ function getCookie(cname) {
 
 function makeRequest(opts) {
     return $.ajax(Object.assign(opts, {
-        url: `http://${env.API_HOST}:${env.API_PORT}${opts.url}`,
+        url: `/api${opts.url}`,
         headers: { Authentification: getCookie('token')
     }}))
 }

@@ -10,7 +10,7 @@ function failureAuthentificationHandler() {
 }
 
 $signinForm.submit(function(ev) {
-    $.post("http://localhost:8000/authentification", $signinForm.serializeJSON())
+    $.post("/api/authentification", $signinForm.serializeJSON())
         .then(successAuthentificationHandler)
         .catch(failureAuthentificationHandler)
     ev.preventDefault();
