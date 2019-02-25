@@ -12,7 +12,8 @@ sudo iptables -X
 sudo iptables -F
 
 # On est pas un putain de routeur
-
+sudo iptables -t mangle -A OUTPUT -o lo -j ACCEPT
+sudo iptables -t mangle -A INPUT -i lo -j ACCEPT
 sudo iptables -t mangle -A OUTPUT -p tcp --dport 80 -m state --state NEW -j ACCEPT
 sudo iptables -t mangle -A INPUT -p tcp --sport 80 -m state --state ESTABLISHED -j ACCEPT
 
