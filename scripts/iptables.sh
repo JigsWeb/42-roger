@@ -21,7 +21,6 @@ sudo iptables -t mangle -A INPUT -p tcp --sport 80 -m state --state ESTABLISHED 
 sudo iptables -t mangle -A INPUT -p tcp --match multiport ! --dports 4242,80,443 -j DROP
 
 # Block packet from reserved/local IPv4 network
-sudo iptables -t mangle -A PREROUTING -s 127.0.0.1/8 -j DROP
 sudo iptables -t mangle -A PREROUTING -s 100.64.0.0/10 -j DROP
 sudo iptables -t mangle -A PREROUTING -s 169.254.0.0/16 -j DROP
 sudo iptables -t mangle -A PREROUTING -s 172.16.0.0/12 -j DROP
