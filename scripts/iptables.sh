@@ -83,4 +83,4 @@ sudo iptables -A INPUT -p tcp --tcp-flags RST RST -j DROP
 # Create pre-up rule on network interface for make iptables rules persistent
 
 sudo sh -c 'iptables-save > /etc/iptables.rules.v4'
-sudo sh -c 'echo "    pre-up iptables-restore /etc/iptables.rules.v4" >> /etc/network/interfaces'
+sudo sh -c 'echo "			pre-up iptables-restore < /etc/iptables.rules.v4" >> /etc/network/interfaces'
