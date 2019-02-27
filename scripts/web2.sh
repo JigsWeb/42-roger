@@ -8,7 +8,7 @@ openssl dhparam -out /etc/ssl/certs/dhparam.pem 2048
 cp assets/self-signed.conf /etc/nginx/snippets/self-signed.conf
 cp assets/ssl-params.conf /etc/nginx/snippets/ssl-params.conf
 
-sudo htpasswd -c /etc/apache2/.htpasswd amoynet
+sudo htpasswd -c /etc/nginx/.htpasswd amoynet
 
 sudo cp /etc/nginx/sites-available/default /etc/nginx/sites-available/default.bak
 sudo cp assets/nginx-default2 /etc/nginx/sites-available/default
