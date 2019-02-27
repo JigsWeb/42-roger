@@ -10,7 +10,7 @@ cp assets/ssl-params.conf /etc/nginx/snippets/ssl-params.conf
 
 sudo htpasswd -c /etc/apache2/.htpasswd amoynet
 
-cp /etc/nginx/sites-available/default /etc/nginx/sites-available/default.bak
-cp assets/nginx-default2 /etc/nginx/sites-available/default
+sudo cp /etc/nginx/sites-available/default /etc/nginx/sites-available/default.bak
+sudo cp assets/nginx-default2 /etc/nginx/sites-available/default
 
-service nginx restart
+sudo service nginx restart
