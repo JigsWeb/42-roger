@@ -11,9 +11,6 @@ server {
     include snippets/self-signed.conf;
     include snippets/ssl-params.conf;
 
-	auth_basic           "Administrator’s Area";
-    auth_basic_user_file conf/htpasswd;
-
 	root /var/www/html;
 
 	# Add index.php to the list if you are using PHP
@@ -22,8 +19,8 @@ server {
 	server_name _;
 
 	location / {
-		# First attempt to serve request as file, then
-		# as directory, then fall back to displaying a 404.
+		auth_basic           “Administrator’s Area”;
+    	auth_basic_user_file /etc/apache2/.htpasswd;
 		try_files $uri $uri/ =404;
 	}
 }
