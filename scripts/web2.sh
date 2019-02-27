@@ -1,0 +1,16 @@
+#!/bin/sh
+
+sudo apt-get install apache2-utils
+
+openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout /etc/ssl/private/nginx-selfsigned.key -out /etc/ssl/certs/nginx-selfsigned.crt
+openssl dhparam -out /etc/ssl/certs/dhparam.pem 2048
+
+cp assets/self-signed.conf /etc/nginx/snippets/self-signed.conf
+cp assets/ssl-params.conf /etc/nginx/snippets/ssl-params.conf
+
+sudo htpasswd -c /etc/apache2/.htpasswd amoynet
+
+cp /etc/nginx/sites-available/default /etc/nginx/sites-available/default.bak
+cp assets/nginx-default2 /etc/nginx/sites-available/default
+
+service nginx restart
