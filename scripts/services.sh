@@ -1,2 +1,1 @@
-service rsyslog stop
-service unattended-upgrades stop
+service rsyslog disable
